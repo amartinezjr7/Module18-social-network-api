@@ -1,5 +1,4 @@
 const {User} = require('../models');
-const { param } = require('../routes/api/user-routes');
 
 const userController = {
     getAllUsers(req, res) {
@@ -7,7 +6,7 @@ const userController = {
             .then(dbUserData => res.json(dbUserData))
             .catch(err => {
                 console.log(err);
-                res.status(400).JSON(err);
+                res.status(400).json(err);
             });
     },
 
@@ -18,20 +17,20 @@ const userController = {
         .select('-__v')
         .then(dbUserData => {
             if(!dbUserData){
-                res.status(404).JSON({message:'No user found woth this id!'});
+                res.status(404).json({message:'No user found woth this id!'});
             }
             res.JSON(dbUserData);
         })
         .catch(err =>{
             console.log(err);
-            res.status(400).JSON(err);
+            res.status(400).json(err);
         });
     },
     createUser({body}, res) {
         User.create(body)
-            .then(dbUserData => res.JSON(dbUserData))
+            .then(dbUserData => res.json(dbUserData))
             .catch(err =>{
-                res.status(400).JSON(err);})
+                res.status(400).json(err);})
     }, 
 
     updateUser({ params, body}, res){
@@ -41,9 +40,9 @@ const userController = {
                 res.status(404)({message: 'No user found with this id!'});
                 return;
             }
-            res.JSON(dbUserData);
+            res.json(dbUserData);
         })
-        .catch(err => res.status(400).JSON(err));
+        .catch(err => res.status(400).json(err));
     },
 
     deleteUser({ params}, res){
@@ -53,9 +52,9 @@ const userController = {
                 res.status(404)({message: 'No user found with this id!'});
                 return;
             }
-            res.JSON(dbUserData);
+            res.json(dbUserData);
         })
-        .catch(err => res.status(400).JSON(err));
+        .catch(err => res.status(400).json(err));
     },
 
         addFriend({ params }, res) {
@@ -70,7 +69,7 @@ const userController = {
                 .catch(err => res.status(400).json(err));
         },
  
-        removeFriend({ params }, res) {
+        deleteFriend({ params }, res) {
             User.findOneAndUpdate({ _id: params.id }, { $pull: { friends: params.friendId } }, { runValidators: true })
                 .then(dbUserData => {
                     if (!dbUserData) {
