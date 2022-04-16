@@ -1,6 +1,5 @@
 const router = require('express').Router();
 
-const { model } = require('mongoose');
 const {
     getAllThoughts,
     getThoughtById,
@@ -12,13 +11,15 @@ const {
 } = require('../../controller/thought-controller');
 
 router.route('/')
-    .get(getAllThoughts)
-    .post(addThought);
+    .get(getAllThoughts)  
 
-router.route(':id')
+router.route('/:id')
     .get(getThoughtById)
-    .post(updateThought)
+    .put(updateThought)
     .delete(removeThought);
+
+router.route('/:userId')
+     .post(addThought);
 
 router.route('/:thoughtId/reactions')
     .post(addReaction);
