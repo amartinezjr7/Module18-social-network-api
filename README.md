@@ -40,7 +40,7 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
 
 ## Usage
 
-Run the following command at the root of your project and answer the prompted questions:
+The backend for a social media site
 
 `mongod`
 
