@@ -1,8 +1,7 @@
-const {Thought} = require('../models/Thought');
-const User = require('../models/User');
+const {Thought, User} = require('../models');
 
 const thoughtController = {
-    getAllThought(req,res) {
+    getAllThoughts(req,res) {
         Thought.find({})
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => {
@@ -12,7 +11,7 @@ const thoughtController = {
     },
 
     getThoughtById({params}, res){
-        Thought.findOne({_id: params.thoughtId})
+        Thoughts.findOne({_id: params.thoughtId})
             .then(dbThoughtData => {
                 if (!dbThoughtData) {
                     res.status(404).json({ message: 'No thought found with this id!' });
